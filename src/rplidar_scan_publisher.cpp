@@ -245,6 +245,7 @@ public:
         RCLCPP_INFO(this->get_logger(),"RPLIDAR running on ROS2 package rplidar_ros2. ROS2 SDK Version:" ROS2VERSION ", RPLIDAR SDK Version:" RPLIDAR_SDK_VERSION "");
 
         u_result     op_result;
+        
 
         // create the driver instance
         if(channel_type == "tcp"){
@@ -254,12 +255,12 @@ public:
             drv = RPlidarDriver::CreateDriver(rp::standalone::rplidar::DRIVER_TYPE_SERIALPORT);
         }
 
-        
+        RCLCPP_INFO(this->get_logger(),"Point 1");
         if (!drv) {
             RCLCPP_ERROR(this->get_logger(),"Create Driver fail, exit");
             return -2;
         }
-
+        RCLCPP_INFO(this->get_logger(),"Point 2");
         if(channel_type == "tcp"){
             // make connection...
             if (IS_FAIL(drv->connect(tcp_ip.c_str(), (_u32)tcp_port))) {
@@ -278,12 +279,12 @@ public:
             }
 
         }
-        
+        RCLCPP_INFO(this->get_logger(),"Point 3");
         // get rplidar device info
         if (!getRPLIDARDeviceInfo(drv)) {
             return -1;
         }
-
+        RCLCPP_INFO(this->get_logger(),"Point 4");
         // check health...
         if (!checkRPLIDARHealth(drv)) {
             RPlidarDriver::DisposeDriver(drv);
@@ -464,6 +465,7 @@ int main(int argc, char * argv[])
   rclcpp::init(argc, argv);  
   auto rplidar_scan_publisher = std::make_shared<RPLidarScanPublisher>();
   signal(SIGINT,ExitHandler);
+  signal(SIGTERM,ExitHandler);
   int ret = rplidar_scan_publisher->work_loop();
   rclcpp::shutdown();
   return ret;
