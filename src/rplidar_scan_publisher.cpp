@@ -64,10 +64,10 @@ class RPLidarScanPublisher : public rclcpp::Node
   private:    
     void init_param()
     {
-        this->declare_parameter("channel_type");
-        this->declare_parameter("tcp_ip");
-        this->declare_parameter("tcp_port");
-        this->declare_parameter("serial_port");
+        this->declare_parameter("channel_type", "serial");
+        this->declare_parameter("tcp_ip", "192.168.0.7");
+        this->declare_parameter("tcp_port", 20108);
+        this->declare_parameter("serial_port", "/dev/ttyUSB0");
         this->declare_parameter("serial_baudrate");
         this->declare_parameter("frame_id");
         this->declare_parameter("inverted");
