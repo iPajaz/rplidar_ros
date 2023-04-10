@@ -68,11 +68,11 @@ class RPLidarScanPublisher : public rclcpp::Node
         this->declare_parameter("tcp_ip", "192.168.0.7");
         this->declare_parameter("tcp_port", 20108);
         this->declare_parameter("serial_port", "/dev/ttyUSB0");
-        this->declare_parameter("serial_baudrate");
-        this->declare_parameter("frame_id");
-        this->declare_parameter("inverted");
-        this->declare_parameter("angle_compensate");
-        this->declare_parameter("scan_mode");
+        this->declare_parameter("serial_baudrate", 115200);
+        this->declare_parameter("frame_id", "laser_frame");
+        this->declare_parameter("inverted", false);
+        this->declare_parameter("angle_compensate", false);
+        this->declare_parameter("scan_mode", std::string());
 
         this->get_parameter_or<std::string>("channel_type", channel_type, "serial");
         this->get_parameter_or<std::string>("tcp_ip", tcp_ip, "192.168.0.7"); 
